@@ -19,12 +19,19 @@ export async function initResources(): Promise<ImageJSON[]> {
     })
     const data: ImageJSON[] = await response.json()
     return data.sort((a: ImageJSON, b: ImageJSON) => {
-      if (a.index < b.index) {
-        return -1
-      }
-      return 1
+      const prioA = prioFromImage(a);
+      const prioB = prioFromImage(b);
+
+      return prioA - prioB;
     })
   } catch (_) {
     return []
   }
+}
+
+function prioFromImage(image: ImageJSON): number {
+  const basename = image.loUrl.split('/').pop()!;
+  const filename = basename.split('_').shift()!;
+  
+  return Number.parseInt(filename, 10);
 }
