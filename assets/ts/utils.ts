@@ -17,10 +17,6 @@ export function expand(num: number): string {
   return ('0000' + num.toString()).slice(-4)
 }
 
-export function isMobile(): boolean {
-  return window.matchMedia('(hover: none)').matches
-}
-
 export function getRandom(min: number, max: number): number {
   return Math.floor(Math.random() * (max - min + 1)) + min
 }
